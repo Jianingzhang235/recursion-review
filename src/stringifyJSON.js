@@ -10,10 +10,14 @@ var stringifyJSON = function (obj) {
 
   if (typeof obj === 'string') {
     result += '"' + obj + '"';
-  } else if (typeof obj === 'boolean' && typeof obj === 'number') {
+  } else if (typeof obj === 'boolean' || typeof obj === 'number') {
     result += String(obj);
-  } else if ()
-    return result;
+  } else if (obj === null) {
+    result += 'null';
+  } else if (isNaN(obj)) {
+    result += 'NaN';
+  }
+  return result;
 };
 
 /*
