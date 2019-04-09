@@ -17,6 +17,17 @@ var stringifyJSON = function (obj) {
   } else if (isNaN(obj)) {
     result += 'NaN';
   }
+
+  if (Array.isArray(obj)) {
+    result = '['
+    for (var i = 0; i < obj.length; i++) {
+      result += stringifyJSON(obj[i]) + ',';
+    }
+    if (result[result.length - 1] === ',') {
+      result = result.slice(0, -1);
+    }
+    result += ']';
+  }
   return result;
 };
 
