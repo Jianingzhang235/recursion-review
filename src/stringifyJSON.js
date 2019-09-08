@@ -14,6 +14,8 @@ var stringifyJSON = function (obj) {
     result += String(obj);
   } else if (obj === null) {
     result += 'null';
+    return result;
+  
   } else if (isNaN(obj)) {
     result += 'NaN';
   }
@@ -27,6 +29,18 @@ var stringifyJSON = function (obj) {
       result = result.slice(0, -1);
     }
     result += ']';
+  } else if(typeof obj ==='object') {
+    result = '{';
+    for(var key in obj) {
+      if(obj[key] !== undefined && typeof obj[key] !== 'function' && typeof obj[key] !== 'symbol') {
+        result += '"' + key + '":';
+        result = result + stringifyJSON(obj[key]) + ',';
+      };
+    }
+    if(result.slice(-1) === ',') {
+      result = result.slice(0, -1);
+    }
+    result += '}';
   }
   return result;
 };
